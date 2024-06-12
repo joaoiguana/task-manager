@@ -1,7 +1,7 @@
 class BucketsController < ApplicationController
   def index
     @empty_buckets = Bucket.get_by_status("Empty")
-    @pending_buckets = Bucket.get_by_staus("Pending")
+    @pending_buckets = Bucket.get_by_status("Pending")
     @completed_buckets = Bucket.get_by_status("Completed")
   end
 
@@ -10,7 +10,7 @@ class BucketsController < ApplicationController
   end
 
   def create
-    @bucket = Bucket.create(bucket_params(:name, :description))
+    @bucket = Bucket.create(bucket_params)
     @bucket.status = "Empty"
     @bucket.save
     redirect_to bucket_path(@bucket)
@@ -26,7 +26,7 @@ class BucketsController < ApplicationController
 
   def update
     @bucket = Bucket.find(params[:id])
-    @bucket.update(bucket_params(:name, :description))
+    @bucket.update(bucket_params)
     @bucket.update_status
     redirect_to bucket_path(@bucket)
   end
@@ -39,6 +39,6 @@ class BucketsController < ApplicationController
   private
 
   def bucket_params
-    params.require(:bucket).permit(*args)
+    params.require(:bucket).permit(:name, :description)
   end
 end
