@@ -2,7 +2,7 @@ class Bucket < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   def self.get_by_status(status)
-    where(status: status)
+    where(status:)
   end
 
   def update_status
@@ -16,6 +16,6 @@ class Bucket < ApplicationRecord
   end
 
   def tasks_by_status(status)
-    tasks.where(status: status)
+    tasks.where(status:)
   end
 end
