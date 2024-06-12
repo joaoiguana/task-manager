@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   def index
-    @pending_tasks = Task.status("Pending")
-    @completed_tasks = Task.status("Completed")
+    @pending_tasks = Task.get_by_status("Pending")
+    @completed_tasks = Task.get_by_status("Completed")
   end
 
   def new
@@ -9,7 +9,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.create(task_params(:name, :description))
+    @task = Task.create(task_params)
     @task.status = "Pending"
     @task.save
     @task.bucket.update_status
@@ -21,12 +21,12 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = task.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def update
     @task = Task.find(params[:id])
-    @task.update(task_params(:name, :description, :status, :bucket_id))
+    @task.update(task_params)
     @bucket = @task.bucket.update_status
     redirect_to task_path(@task)
   end
@@ -39,6 +39,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(*args)
+    params.require(:task).permit(:name, :description, :status, :bucket_id)
   end
 end
