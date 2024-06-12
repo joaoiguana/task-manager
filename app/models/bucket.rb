@@ -1,25 +1,21 @@
 class Bucket < ApplicationRecord
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 
   def self.get_by_status(status)
-    self.all.select do |bucket|
-      bucket.status == status
-    end
+    where(status: status)
   end
 
   def update_status
-    if self.tasks == []
-      self.status = "Empty"
-    elsif self.tasks.any? {|task| task.status == "Pending"}
-      self.status = "Pending"
+    if self.tasks.empty?
+      self.update(status: "Empty")
+    elsif self.tasks.any? { |task| task.status == "Pending" }
+      self.update(status: "Pending")
     else
-      self.status = "Completed"
+      self.update(status: "Completed")
     end
   end
 
   def tasks_by_status(status)
-    self.tasks.select do |task|
-      task.status == status
-    end
+    tasks.where(status: status)
   end
 end
