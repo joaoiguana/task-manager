@@ -1,17 +1,29 @@
-<h1>TASKS LIST</h1>
+<div class="container">
+  <div class="page-header">
+    <h1>TASKS LIST</h1>
+  </div>
 
-<%= button_to "Create Task", new_task_path, method: :get %>
+  <%= button_to "Create Task", new_task_path, method: :get, class: "btn btn-primary" %>
 
-<h3>Pending Tasks</h3>
-<ul>
-<% @pending_tasks.each do |task| %>
-    <li><%= link_to task.name, task_path(task) %></li>
-<% end %>
-</ul>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Pending Tasks</h3>
+    </div>
+    <ul class="list-group">
+      <% @pending_tasks.each do |task| %>
+        <li class="list-group-item"><%= link_to task.name, task_path(task) %></li>
+      <% end %>
+    </ul>
+  </div>
 
-<h3>Completed Tasks</h3>
-<ul>
-<% @completed_tasks.each do |task| %>
-    <li><%= link_to task.name, task_path(task) %></li>
-<% end %>
-</ul>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Completed Tasks</h3>
+    </div>
+    <ul class="list-group">
+      <% @completed_tasks.each do |task| %>
+        <li class="list-group-item"><%= link_to task.name, task_path(task) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

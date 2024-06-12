@@ -1,9 +1,27 @@
-<h1><%= @task.name %></h1>
+<div class="container">
+  <div class="page-header">
+    <h1><%= @task.name %></h1>
+  </div>
 
-<p><%= @task.description %></p>
+  <p class="lead"><%= @task.description %></p>
 
-<h3><%= @task.bucket.name %></h3>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Bucket</h3>
+    </div>
+    <div class="panel-body">
+      <h3><%= @task.bucket.name %></h3>
+    </div>
+  </div>
 
-<h6><%= @task.status %></h6>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Status</h3>
+    </div>
+    <div class="panel-body">
+      <h6><%= @task.status %></h6>
+    </div>
+  </div>
 
-<%= button_to "Edit task", edit_task_path(@task), method: :get %>
+  <%= button_to "Edit Task", edit_task_path(@task), method: :get, class: "btn btn-primary" %>
+</div>
